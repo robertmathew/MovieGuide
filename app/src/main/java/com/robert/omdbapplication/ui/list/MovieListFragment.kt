@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.robert.omdbapplication.R
 import com.robert.omdbapplication.data.model.SearchResponse
-import com.robert.omdbapplication.ui.MainActivity
 
 
 class MovieListFragment : Fragment(), AdapterClick {
@@ -58,6 +58,10 @@ class MovieListFragment : Fragment(), AdapterClick {
     }
 
     override fun onListClick(imdbId: String) {
-        (requireActivity() as MainActivity).launchDetailView(bundleOf("ID" to imdbId))
+
+        findNavController().navigate(
+            R.id.action_movieListFragment_to_detailViewFragment,
+            bundleOf("ID" to imdbId)
+        )
     }
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.robert.omdbapplication.R
@@ -36,7 +37,8 @@ class SearchFragment : Fragment() {
 
         viewModel.movieListLiveData.observe(viewLifecycleOwner) {
             val bundle = bundleOf("DATA" to Gson().toJson(it))
-            (requireActivity() as MainActivity).launchList(bundle)
+
+            findNavController().navigate(R.id.action_searchFragment_to_movieListFragment, bundle)
         }
     }
 
