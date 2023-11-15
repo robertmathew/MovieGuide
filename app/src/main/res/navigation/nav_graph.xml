@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.robert.omdbapplication.ui.search.SearchFragment"
-        android:label="fragment_search"
+        android:label="Search movie"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_movieListFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.robert.omdbapplication.ui.list.MovieListFragment"
-        android:label="fragment_movie_list"
+        android:label="Movie List"
         tools:layout="@layout/fragment_movie_list" >
         <action
             android:id="@+id/action_movieListFragment_to_detailViewFragment"
@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/detailViewFragment"
         android:name="com.robert.omdbapplication.ui.detailview.DetailViewFragment"
-        android:label="fragment_detail_view"
+        android:label="Movie detail"
         tools:layout="@layout/fragment_detail_view" />
 </navigation>

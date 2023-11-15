@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OMdb Application</string>
+    <string name="app_name">Movie Guide</string>
     <string name="text_search">Search</string>
     <string name="text_movie_name">Movie name</string>
 </resources>
