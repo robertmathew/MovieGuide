@@ -8,32 +8,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.robert.omdbapplication.R
 import com.robert.omdbapplication.data.model.SearchResponse
+import com.robert.omdbapplication.databinding.FragmentDetailViewBinding
+import com.robert.omdbapplication.databinding.FragmentSearchBinding
 import com.robert.omdbapplication.ui.MainActivity
 import com.robert.omdbapplication.ui.list.MovieListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchFragment : Fragment() {
+@AndroidEntryPoint
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     companion object {
         fun newInstance() = SearchFragment()
     }
 
-    private lateinit var viewModel: SearchViewModel
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: SearchViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentSearchBinding.bind(view)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+
+        binding.buttonSearch.setOnClickListener {
+
+            val movieName = view.findViewById<TextInputEditText>(R.id.textInputEditTextMovieName).text.toString()
+
+            viewModel.getMovieDetail(movieName)
+        }
+
 
         viewModel.movieListLiveData.observe(viewLifecycleOwner) {
             val bundle = bundleOf("DATA" to Gson().toJson(it))
@@ -42,16 +51,9 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.findViewById<Button>(R.id.buttonSearch).setOnClickListener {
 
-            val movieName = view.findViewById<TextInputEditText>(R.id.textInputEditTextMovieName).text.toString()
-
-            viewModel.searchMovie(movieName)
-        }
-
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
-
 }

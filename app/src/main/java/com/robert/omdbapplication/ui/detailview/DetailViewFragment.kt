@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.robert.omdbapplication.R
 import com.robert.omdbapplication.databinding.FragmentDetailViewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailViewFragment : Fragment() {
 
     companion object {
@@ -35,7 +37,7 @@ class DetailViewFragment : Fragment() {
 
         val imdbId = arguments?.getString("ID")
 
-        imdbId?.let { viewModel.movieDetail(it) }
+        imdbId?.let { viewModel.getMovieDetail(it) }
 
         viewModel.movieDetailLiveData.observe(viewLifecycleOwner) {
 
